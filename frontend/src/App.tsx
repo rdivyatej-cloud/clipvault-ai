@@ -52,7 +52,7 @@ export function App() {
       case 'library':
         return { title: 'Video Library', subtitle: 'Manage imported stream footage and projects' };
       case 'settings':
-        return { title: 'Engine Settings', subtitle: 'Configure faster-whisper, Ollama Qwen 2.5 3B & FFmpeg' };
+        return { title: 'Engine Settings', subtitle: 'Configure faster-whisper, Ollama Qwen 2.5 1.5B & FFmpeg' };
       default:
         return { title: 'CLIPVAULT AI', subtitle: 'Streamer Studio' };
     }

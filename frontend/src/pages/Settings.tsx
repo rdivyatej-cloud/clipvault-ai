@@ -17,7 +17,7 @@ export const Settings: React.FC = () => {
   const [settings, setSettings] = useState<Record<string, string>>({
     whisper_model: 'base',
     ollama_url: 'http://localhost:11434',
-    ollama_model: 'qwen2.5:3b',
+    ollama_model: 'qwen2.5:1.5b',
     default_clip_min_duration: '25',
     default_clip_max_duration: '55',
     target_aspect_ratio: '9:16',
@@ -178,7 +178,7 @@ export const Settings: React.FC = () => {
                 className="w-full bg-vault-bg border border-vault-border rounded-xl px-3 py-2 text-xs text-vault-silverLight focus:border-vault-red focus:outline-none font-mono"
               />
               <p className="text-[10px] text-vault-muted mt-1">
-                Default: <span className="font-mono text-vault-silver">qwen2.5:3b</span> (Verified local)
+                Default: <span className="font-mono text-vault-silver">qwen2.5:1.5b</span> (Verified local)
               </p>
             </div>
 

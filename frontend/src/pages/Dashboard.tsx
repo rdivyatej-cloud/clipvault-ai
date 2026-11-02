@@ -105,7 +105,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             Turn Full Stream VODs into <span className="text-vault-red">Viral Clips</span> In Seconds.
           </h1>
           <p className="text-sm text-vault-muted mb-6 leading-relaxed">
-            Multi-modal local intelligence powered by faster-whisper, audio excitement tracking, OpenCV visual activity, and Qwen 2.5 3B. Runs 100% locally with zero cloud API costs.
+            Multi-modal local intelligence powered by faster-whisper, audio excitement tracking, OpenCV visual activity, and Qwen 2.5 1.5B. Runs 100% locally with zero cloud API costs.
           </p>
           <div className="flex items-center space-x-4">
             <button

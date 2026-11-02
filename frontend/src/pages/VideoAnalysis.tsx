@@ -298,7 +298,7 @@ export const VideoAnalysis: React.FC<VideoAnalysisProps> = ({
                   <span>Ranked Viral Moments ({filteredMoments.length})</span>
                 </h3>
                 <p className="text-[11px] text-vault-muted">
-                  Scored via multi-modal AI: Audio Energy + Scene Cuts + Qwen 2.5 3B
+                  Scored via multi-modal AI: Audio Energy + Scene Cuts + Qwen 2.5 1.5B
                 </p>
               </div>
 
