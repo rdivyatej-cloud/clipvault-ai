@@ -47,7 +47,7 @@ class AnalyzeMomentsRequest(BaseModel):
     min_clip_duration: float = 25.0
     max_clip_duration: float = 60.0
     ollama_url: str = "http://localhost:11434"
-    ollama_model: str = "qwen2.5:3b"
+    ollama_model: str = "qwen2.5:1.5b"
 
 class RenderClipRequest(BaseModel):
     video_path: str
@@ -99,7 +99,7 @@ def analyze_moments_endpoint(req: AnalyzeMomentsRequest):
     Multi-modal moment detection:
     1. Audio excitement curve (RMS + spectral centroid)
     2. Scene activity & cut detection (OpenCV)
-    3. Transcript semantic analysis (Ollama Qwen 2.5 3B with heuristic fallback)
+    3. Transcript semantic analysis (Ollama Qwen 2.5 1.5B with heuristic fallback)
     4. Composite moment ranking & non-overlapping boundary snapping
     """
     try:

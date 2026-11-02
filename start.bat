@@ -84,3 +84,4 @@ echo.
 echo Leave this window or close it. To stop CLIPVAULT AI cleanly,
 echo simply run stop.bat.
 pause
+

@@ -105,7 +105,7 @@ db.exec(`
 const defaultSettings: Record<string, string> = {
   'whisper_model': 'base',
   'ollama_url': 'http://localhost:11434',
-  'ollama_model': 'qwen2.5:3b',
+  'ollama_model': 'qwen2.5:1.5b',
   'default_clip_min_duration': '25',
   'default_clip_max_duration': '55',
   'target_aspect_ratio': '9:16',
@@ -123,3 +123,4 @@ for (const [key, value] of Object.entries(defaultSettings)) {
 }
 
 export default db;
+

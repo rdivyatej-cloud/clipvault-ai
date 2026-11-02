@@ -94,7 +94,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, activ
           </div>
           <div className="flex justify-between">
             <span>AI LLM:</span>
-            <span className="text-emerald-400 font-medium">Qwen 2.5 3B</span>
+            <span className="text-emerald-400 font-medium">Qwen 2.5 1.5B</span>
           </div>
         </div>
       </div>

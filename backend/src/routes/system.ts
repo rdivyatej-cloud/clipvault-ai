@@ -77,3 +77,4 @@ router.post('/open-output', (_req: Request, res: Response) => {
 });
 
 export default router;
+

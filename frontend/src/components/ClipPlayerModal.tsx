@@ -264,3 +264,4 @@ export const ClipPlayerModal: React.FC<ClipPlayerModalProps> = ({ clip, onClose,
     </div>
   );
 };
+

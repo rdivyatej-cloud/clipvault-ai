@@ -34,12 +34,12 @@ CONVERSATION_KEYWORDS = {
 def analyze_transcript_with_ollama(
     transcript_segments: List[Dict[str, Any]],
     ollama_url: str = "http://localhost:11434",
-    model: str = "qwen2.5:3b",
+    model: str = "qwen2.5:1.5b",
     min_clip_sec: float = 25.0,
     max_clip_sec: float = 60.0
 ) -> List[Dict[str, Any]]:
     """
-    Sends transcript to local Ollama (Qwen 2.5 3B) for moment identification.
+    Sends transcript to local Ollama (Qwen 2.5 1.5B) for moment identification.
     Falls back cleanly to heuristic NLP analyzer if Ollama is unreachable.
     """
     if not transcript_segments:
@@ -203,3 +203,4 @@ def fallback_heuristic_analyzer(
         i += max(1, (j - i) // 2) # 50% overlap step
 
     return candidates
+

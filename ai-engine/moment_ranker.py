@@ -165,3 +165,4 @@ def rank_and_deduplicate_moments(
 
     logger.info(f"Final moment ranking produced {len(final_selection)} non-overlapping moments.")
     return final_selection
+

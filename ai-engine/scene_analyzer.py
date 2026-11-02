@@ -89,3 +89,4 @@ class SceneAnalyzer:
         # Normalized to 0 - 100
         score = min(100.0, (avg * 1.8) + (peak * 0.8))
         return round(score, 1)
+

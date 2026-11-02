@@ -35,7 +35,7 @@ CLIPVAULT AI is an autonomous, locally operated AI video clipping studio enginee
                                                               v
                                               +-------------------------------+
                                               |       LOCAL OLLAMA DAEMON     |
-                                              |  Model: qwen2.5:3b (Port 11434)|
+                                              |  Model: qwen2.5:1.5b (Port 11434)|
                                               +-------------------------------+
 ```
 
@@ -82,7 +82,7 @@ CLIPVAULT AI is an autonomous, locally operated AI video clipping studio enginee
   - Samples video frames downsampled to 240p to minimize CPU load.
   - Computes pixel-difference motion curves and detects hard scene transitions.
 - **Semantic Moment Analysis (`llm_analyzer.py`)**:
-  - Prompts local Ollama (`qwen2.5:3b`) with timestamped transcript context.
+  - Prompts local Ollama (`qwen2.5:1.5b`) with timestamped transcript context.
   - Detects funny, rage, hype, emotional, and unexpected moments.
   - Includes a fallback heuristic streamer NLP engine for offline execution.
 - **Multi-Modal Moment Ranker (`moment_ranker.py`)**:
@@ -107,3 +107,4 @@ CLIPVAULT AI is an autonomous, locally operated AI video clipping studio enginee
 - **Graceful Fault Tolerance**:
   - If Ollama is offline or model generation times out, the system automatically switches to the heuristic streamer NLP engine.
   - If a system reboot interrupts a job, the queue recovers on startup and marks the job as failed with 1-click retry.
+

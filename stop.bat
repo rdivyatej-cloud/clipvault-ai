@@ -20,3 +20,4 @@ for /f "tokens=5" %%a in ('netstat -aon ^| findstr ":8000" ^| findstr "LISTENING
 echo.
 echo [SUCCESS] CLIPVAULT AI has been shut down cleanly.
 timeout /t 2 /nobreak >nul
+

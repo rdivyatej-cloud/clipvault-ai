@@ -99,3 +99,4 @@ export interface SystemStats {
   queued_jobs: number;
   processing_jobs: number;
 }
+

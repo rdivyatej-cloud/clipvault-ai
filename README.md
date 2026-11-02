@@ -31,7 +31,7 @@ Engineered specifically for everyday modern creator hardware:
 - **Disk**: 477 GB SSD
 
 ### Performance Engineering:
-1. **CPU-First Execution**: Quantized INT8 neural models (`faster-whisper-base` + `qwen2.5:3b`).
+1. **CPU-First Execution**: Quantized INT8 neural models (`faster-whisper-base` + `qwen2.5:1.5b`).
 2. **Sequential Queue**: Strictly processes one video at a time to prevent thermal throttling and memory exhaustion.
 3. **Downsampled Computer Vision**: Frame differences sampled at 240p for instant scene activity tracking.
 4. **Streaming Pipes**: Temporary 16kHz audio extraction with automatic cleanup upon completion.
@@ -117,8 +117,8 @@ Built with a high-end **Luxury Dark Media Studio Aesthetic**:
 git clone https://github.com/rdivyatej-cloud/clipvault-ai.git
 cd clipvault-ai
 
-# Pull the lightweight Qwen 2.5 3B model
-ollama pull qwen2.5:3b
+# Pull the lightweight Qwen 2.5 1.5B model
+ollama pull qwen2.5:1.5b
 
 # Install Python requirements
 pip install -r requirements.txt
@@ -210,3 +210,4 @@ CLIPVAULT AI is designed exclusively for processing user-owned, authorized strea
 - **Owner**: Divyatej
 - **Official Repository**: [https://github.com/rdivyatej-cloud/clipvault-ai.git](https://github.com/rdivyatej-cloud/clipvault-ai.git)
 - **Branch**: `main`
+

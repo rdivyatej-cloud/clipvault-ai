@@ -76,3 +76,4 @@ This document provides solutions for common issues when running CLIPVAULT AI loc
 - Subtitles are generated in ASS format with high-contrast styling.
 - Default font is `Montserrat` / `Arial`. If Montserrat is not installed on Windows, FFmpeg automatically falls back to Arial without throwing errors.
 - Important keywords are emphasized in vivid crimson red (`&H002020EF` in ASS BGR format) with thick dark outlines.
+

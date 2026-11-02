@@ -276,3 +276,4 @@ export const GeneratedClips: React.FC<GeneratedClipsProps> = ({ onSelectClip, on
     </div>
   );
 };
+

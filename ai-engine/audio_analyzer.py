@@ -114,3 +114,4 @@ class AudioAnalyzer:
         # Sort descending by score
         candidates.sort(key=lambda x: x["score"], reverse=True)
         return candidates
+

@@ -392,3 +392,4 @@ export const NewProject: React.FC<NewProjectProps> = ({ setActiveTab, setSelecte
     </div>
   );
 };
+

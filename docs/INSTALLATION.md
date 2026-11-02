@@ -10,7 +10,7 @@ This guide walks you through setting up CLIPVAULT AI on Windows 11 with an Intel
 2. **Node.js**: Version 20 or 22+ (Includes native `node:sqlite`)
 3. **Python**: Python 3.11, 3.12, 3.13, or 3.14 (Anaconda or standard Python)
 4. **FFmpeg**: Automatically resolved from Winget or system PATH
-5. **Ollama**: For local lightweight LLM moment analysis (`qwen2.5:3b`)
+5. **Ollama**: For local lightweight LLM moment analysis (`qwen2.5:1.5b`)
 
 ---
 
@@ -35,12 +35,12 @@ CLIPVAULT AI automatically searches both system PATH and Winget directories for 
 
 ---
 
-## Step 3: Install Ollama & Pull Qwen 2.5 3B
+## Step 3: Install Ollama & Pull Qwen 2.5 1.5B
 
 1. Download and install Ollama from [https://ollama.com/download/windows](https://ollama.com/download/windows)
-2. Open PowerShell or Command Prompt and download the lightweight 3B model:
+2. Open PowerShell or Command Prompt and download the lightweight 1.5B model:
    ```bash
-   ollama pull qwen2.5:3b
+   ollama pull qwen2.5:1.5b
    ```
 *(Note: CLIPVAULT AI includes an intelligent heuristic fallback that continues working even if Ollama is not running).*
 
@@ -97,3 +97,4 @@ What `start.bat` does automatically:
 6. Prevents duplicate instances if already running.
 
 To shut down all services cleanly, double-click `stop.bat`.
+

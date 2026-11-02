@@ -10,7 +10,7 @@ test('Database initialization and queries', () => {
 
   const ollamaModel = db.prepare('SELECT value FROM settings WHERE key = ?').get('ollama_model') as any;
   assert.ok(ollamaModel, 'ollama_model setting should exist');
-  assert.strictEqual(ollamaModel.value, 'qwen2.5:3b');
+  assert.strictEqual(ollamaModel.value, 'qwen2.5:1.5b');
 
   // Verify projects table works
   const testId = 'test_project_' + Date.now();
@@ -28,3 +28,4 @@ test('Database initialization and queries', () => {
   const deleted = db.prepare('SELECT * FROM projects WHERE id = ?').get(testId);
   assert.strictEqual(deleted, undefined, 'Project should be deleted');
 });
+
