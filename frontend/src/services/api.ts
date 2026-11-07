@@ -1,4 +1,4 @@
-import { Project, Clip, Job, CandidateMoment, Transcript, SystemStats } from '../types';
+import { Project, Clip, Job, CandidateMoment, Transcript, SystemStats, YouTubeVerifyResponse, YouTubeStatusResponse } from '../types';
 
 const BASE_URL = '/api';
 
@@ -62,6 +62,98 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url, name }),
     });
+    return res.json();
+  },
+
+  // Ingestion Manager (CLIPVAULT AI 2.0)
+  async verifySource(input: string): Promise<{
+    success: boolean;
+    sourceType: 'youtube' | 'direct_media' | 'local_file' | 'unknown';
+    normalizedInput: string;
+    isDownloadableDirectly: boolean;
+    metadata?: any;
+    existingProject?: any;
+    instructions?: any;
+    error?: string;
+  }> {
+    const res = await fetch(`${BASE_URL}/ingestion/verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ input }),
+    });
+    return res.json();
+  },
+
+  async ingestDirectUrl(data: {
+    url: string;
+    name?: string;
+    auto_analyze?: boolean;
+    force?: boolean;
+  }): Promise<any> {
+    const res = await fetch(`${BASE_URL}/ingestion/direct-url`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  },
+
+  async ingestLocalFile(formData: FormData): Promise<any> {
+    const res = await fetch(`${BASE_URL}/ingestion/local-file`, {
+      method: 'POST',
+      body: formData,
+    });
+    return res.json();
+  },
+
+  listenJobEvents(jobId: string, onEvent: (event: any) => void): () => void {
+    const eventSource = new EventSource(`${BASE_URL}/jobs/${encodeURIComponent(jobId)}/events`);
+    eventSource.onmessage = (e) => {
+      try {
+        const parsed = JSON.parse(e.data);
+        onEvent(parsed);
+      } catch {}
+    };
+    return () => eventSource.close();
+  },
+
+  // YouTube Assisted Import
+  async verifyYouTubeUrl(url: string): Promise<YouTubeVerifyResponse> {
+    const res = await fetch(`${BASE_URL}/videos/youtube/verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url }),
+    });
+    return res.json();
+  },
+
+  async associateYouTubeFile(formData: FormData): Promise<any> {
+    const res = await fetch(`${BASE_URL}/videos/youtube/associate`, {
+      method: 'POST',
+      body: formData,
+    });
+    return res.json();
+  },
+
+  async associateYouTubeLocalPath(data: {
+    youtube_id: string;
+    file_path: string;
+    youtube_url?: string;
+    title?: string;
+    metadata?: any;
+    auto_analyze?: boolean;
+    force?: boolean;
+  }): Promise<any> {
+    const res = await fetch(`${BASE_URL}/videos/youtube/associate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  },
+
+  async getYouTubeStatus(id: string): Promise<YouTubeStatusResponse> {
+    const res = await fetch(`${BASE_URL}/videos/youtube/${encodeURIComponent(id)}/status`);
     return res.json();
   },
 

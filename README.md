@@ -85,7 +85,7 @@ CLIPVAULT AI does not rely on simple audio thresholds or keyword matching. It co
 
 1. **Audio Excitement Detection (35% weight)**: RMS energy bursts and spectral centroid curves isolate screaming, rage outbursts, table slams, and laughter peaks.
 2. **Visual Activity & Scene Cuts (20% weight)**: OpenCV frame difference curves identify high-motion gameplay, jump scares, and camera transitions.
-3. **Semantic Context & Hook Analysis (45% weight)**: Local Qwen 2.5 3B (with an intelligent heuristic streamer NLP fallback) scores punchlines, conversational hooks, and emotional twists.
+3. **Semantic Context & Hook Analysis (45% weight)**: Local Qwen 2.5 1.5B (with an intelligent heuristic streamer NLP fallback) scores punchlines, conversational hooks, and emotional twists.
 4. **Natural Boundary Snapping**: Clips automatically snap to sentence pauses so speech is never cut off mid-word.
 
 ---
@@ -117,6 +117,9 @@ Built with a high-end **Luxury Dark Media Studio Aesthetic**:
 git clone https://github.com/rdivyatej-cloud/clipvault-ai.git
 cd clipvault-ai
 
+# Configure environment variables (optional: add your YouTube Data API v3 key)
+cp .env.example .env
+
 # Pull the lightweight Qwen 2.5 1.5B model
 ollama pull qwen2.5:1.5b
 
@@ -135,6 +138,24 @@ npm install
 npm run build
 cd ..
 ```
+
+---
+
+## 📺 YouTube URL Assisted Video Import
+
+CLIPVAULT AI includes an assisted YouTube import workflow designed for content creators, stream editors, and game clips:
+
+1. **Verify YouTube URL**: Paste any YouTube video URL, shortlink (`youtu.be`), Shorts link, or Livestream VOD link.
+2. **Metadata Preview**: The backend retrieves title, channel name, duration, and thumbnail preview.
+   - *With `YOUTUBE_API_KEY` configured*: Uses the official Google YouTube Data API v3 for high-res thumbnails and livestream data.
+   - *Without API key*: Automatically falls back to YouTube's public oEmbed service with zero credentials required.
+3. **Authorized Local Video Association**:
+   - In accordance with copyright and platform terms, CLIPVAULT AI operates on your authorized local file:
+     - **YouTube Studio Export**: Download your 1080p source video directly from `YouTube Studio > Content > Options > Download`.
+     - **Google Takeout**: Export your channel archives via `takeout.google.com`.
+     - **OBS / Twitch VOD**: Select your original local streamer recording.
+4. **Duplicate Prevention**: Detects if a project for the video already exists to prevent duplicate processing.
+5. **Full Local AI Pipeline**: Once associated, the video enters the sequential CPU queue for Whisper speech transcription, Librosa audio energy analysis, OpenCV visual tracking, Qwen 2.5 1.5B viral moment ranking, and 9:16 vertical video rendering with synchronized Crimson Red subtitles.
 
 ### 3. Start the Application
 Simply double-click `start.bat`!

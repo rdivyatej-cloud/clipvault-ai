@@ -68,15 +68,17 @@ TRANSCRIPT:
 OUTPUT INSTRUCTION:
 Return ONLY valid JSON (no markdown formatting, no code fences, no extra text) as a list of candidate moments in this exact structure:
 [
-  {{
+  {
     "title": "Short punchy viral title (3-6 words)",
     "category": "funny | rage | hype | unexpected | conversation",
     "start_time": 12.5,
     "end_time": 45.0,
-    "score": 92.5,
-    "hook_strength": 88.0,
+    "emotional_intensity": 90.0,
+    "speech_quality": 88.0,
+    "hook_strength": 85.0,
+    "hook": "Opening hook or punchline that grabs attention in first 3 seconds",
     "explanation": "Why this moment is viral and entertaining"
-  }}
+  }
 ]
 """
 
@@ -196,7 +198,10 @@ def fallback_heuristic_analyzer(
                 "start_time": round(start_time, 2),
                 "end_time": round(end_time, 2),
                 "score": final_score,
+                "emotional_intensity": min(100.0, round(60.0 + top_cat_score * 9.0, 1)),
+                "speech_quality": min(100.0, round(55.0 + density * 40.0, 1)),
                 "hook_strength": hook_score,
+                "hook": start_seg["text"][:80],
                 "explanation": f"High engagement {top_category} pattern detected with strong conversational hook."
             })
 

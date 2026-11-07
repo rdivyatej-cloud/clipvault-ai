@@ -1,7 +1,7 @@
 export interface Project {
   id: string;
   name: string;
-  source_type: 'file' | 'url';
+  source_type: 'file' | 'url' | 'youtube_assisted';
   source_path: string;
   duration: number;
   width: number;
@@ -11,12 +11,66 @@ export interface Project {
   status: 'created' | 'analyzing' | 'analyzed' | 'error';
   created_at: string;
   updated_at: string;
+  youtube_id?: string;
+  youtube_url?: string;
+  metadata_json?: string;
   clips_count?: number;
   moments_count?: number;
   latest_job_id?: string;
   latest_job_status?: string;
   latest_job_progress?: number;
   latest_job_step?: string;
+}
+
+export interface YouTubeMetadata {
+  video_id: string;
+  url: string;
+  title: string;
+  channel_title: string;
+  duration_seconds: number;
+  duration_formatted: string;
+  thumbnail_url: string;
+  description: string;
+  is_live: boolean;
+  privacy_status: string;
+  published_at?: string;
+  source: 'youtube_api_v3' | 'oembed';
+}
+
+export interface YouTubeVerifyResponse {
+  success: boolean;
+  video_id?: string;
+  url?: string;
+  metadata?: YouTubeMetadata;
+  existing_project?: {
+    id: string;
+    name: string;
+    status: string;
+    duration?: number;
+    created_at?: string;
+  } | null;
+  instructions?: {
+    summary: string;
+    export_methods: string[];
+  };
+  error?: string;
+}
+
+export interface YouTubeStatusResponse {
+  success: boolean;
+  associated: boolean;
+  project?: Project;
+  job?: {
+    id?: string;
+    status?: string;
+    progress?: number;
+    current_step?: string;
+    error_message?: string;
+  } | null;
+  clips_count?: number;
+  moments_count?: number;
+  message?: string;
+  error?: string;
 }
 
 export interface CandidateMoment {

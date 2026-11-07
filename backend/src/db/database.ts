@@ -13,6 +13,7 @@ const db = new DatabaseSync(DB_PATH);
 // Run WAL mode & pragmas
 db.exec(`
   PRAGMA journal_mode = WAL;
+  PRAGMA busy_timeout = 5000;
   PRAGMA foreign_keys = ON;
 `);
 
@@ -100,6 +101,45 @@ db.exec(`
     value TEXT NOT NULL
   );
 `);
+
+// Safe migrations for YouTube assisted and direct URL import
+try {
+  db.exec(`ALTER TABLE projects ADD COLUMN youtube_id TEXT;`);
+} catch {}
+try {
+  db.exec(`ALTER TABLE projects ADD COLUMN youtube_url TEXT;`);
+} catch {}
+try {
+  db.exec(`ALTER TABLE projects ADD COLUMN metadata_json TEXT;`);
+} catch {}
+try {
+  db.exec(`ALTER TABLE projects ADD COLUMN source_url TEXT;`);
+} catch {}
+try {
+  db.exec(`ALTER TABLE projects ADD COLUMN source_id TEXT;`);
+} catch {}
+try {
+  db.exec(`ALTER TABLE projects ADD COLUMN source_metadata TEXT;`);
+} catch {}
+try {
+  db.exec(`ALTER TABLE projects ADD COLUMN local_media_path TEXT;`);
+} catch {}
+
+// Safe migrations for jobs
+try {
+  db.exec(`ALTER TABLE jobs ADD COLUMN current_stage TEXT;`);
+} catch {}
+try {
+  db.exec(`ALTER TABLE jobs ADD COLUMN stage_details TEXT;`);
+} catch {}
+try {
+  db.exec(`ALTER TABLE jobs ADD COLUMN updated_at TEXT;`);
+} catch {}
+
+// Safe migrations for moments
+try {
+  db.exec(`ALTER TABLE candidate_moments ADD COLUMN scoring_json TEXT;`);
+} catch {}
 
 // Insert default settings if not exists
 const defaultSettings: Record<string, string> = {

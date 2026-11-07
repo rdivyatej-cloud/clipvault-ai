@@ -11,3 +11,4 @@ try {
         Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
     }
 }
+

@@ -9,6 +9,8 @@ import clipsRouter from './routes/clips.js';
 import settingsRouter from './routes/settings.js';
 import mediaRouter from './routes/media.js';
 import systemRouter from './routes/system.js';
+import videosRouter from './routes/videos.js';
+import ingestionRouter from './routes/ingestion.js';
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ app.use('/api/clips', clipsRouter);
 app.use('/api/settings', settingsRouter);
 app.use('/api/media', mediaRouter);
 app.use('/api/system', systemRouter);
+app.use('/api/videos', videosRouter);
+app.use('/api/ingestion', ingestionRouter);
 
 // Health check
 app.get('/api/health', (_req, res) => {

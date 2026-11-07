@@ -170,6 +170,16 @@ router.post('/url', async (req: Request, res: Response) => {
   }
 });
 
+// GET /api/projects/:id/clips - Get all clips for project
+router.get('/:id/clips', (req: Request, res: Response) => {
+  try {
+    const clips = db.prepare('SELECT * FROM clips WHERE project_id = ? ORDER BY datetime(created_at) DESC').all(req.params.id);
+    res.json({ success: true, clips });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // GET /api/projects/:id - Project details with moments, clips, transcript, jobs
 router.get('/:id', (req: Request, res: Response) => {
   try {

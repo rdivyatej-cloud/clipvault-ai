@@ -60,8 +60,10 @@ def rank_and_deduplicate_moments(
             "category": c.get("category", "hype"),
             "start_time": float(c["start_time"]),
             "end_time": float(c["end_time"]),
-            "semantic_score": float(c.get("score", 70.0)),
-            "hook_strength": float(c.get("hook_strength", 65.0)),
+            "emotional_intensity": float(c.get("emotional_intensity", c.get("score", 75.0))),
+            "speech_quality": float(c.get("speech_quality", 75.0)),
+            "hook_strength": float(c.get("hook_strength", 70.0)),
+            "hook": c.get("hook", ""),
             "explanation": c.get("explanation", "Detected engaging moment.")
         })
 
@@ -80,14 +82,38 @@ def rank_and_deduplicate_moments(
                 "category": "rage" if peak["score"] > 80 else "hype",
                 "start_time": p_start,
                 "end_time": p_end,
-                "semantic_score": 65.0,
+                "emotional_intensity": min(100.0, float(peak["score"])),
+                "speech_quality": 65.0,
                 "hook_strength": 75.0,
+                "hook": "Loud burst of excitement",
                 "explanation": f"Massive audio volume and frequency surge (Score: {peak['score']})."
             })
 
+    # Merge adjacent related moments within 4 seconds if combined length <= max_clip_sec
+    combined_pool.sort(key=lambda x: x["start_time"])
+    merged_pool: List[Dict[str, Any]] = []
+    i = 0
+    while i < len(combined_pool):
+        curr = combined_pool[i]
+        while i + 1 < len(combined_pool):
+            next_m = combined_pool[i + 1]
+            gap = next_m["start_time"] - curr["end_time"]
+            combined_len = next_m["end_time"] - curr["start_time"]
+            if 0 <= gap <= 4.0 and combined_len <= max_clip_sec:
+                # Merge into single moment
+                curr["end_time"] = next_m["end_time"]
+                curr["emotional_intensity"] = max(curr["emotional_intensity"], next_m["emotional_intensity"])
+                curr["speech_quality"] = max(curr["speech_quality"], next_m["speech_quality"])
+                curr["hook_strength"] = max(curr["hook_strength"], next_m["hook_strength"])
+                i += 1
+            else:
+                break
+        merged_pool.append(curr)
+        i += 1
+
     ranked_results: List[Dict[str, Any]] = []
 
-    for item in combined_pool:
+    for item in merged_pool:
         # Snap boundaries
         start, end = snap_to_transcript_boundaries(
             item["start_time"], item["end_time"], transcript_segments
@@ -106,16 +132,23 @@ def rank_and_deduplicate_moments(
 
         visual_score = scene_analyzer.get_visual_score(start, end, visual_samples)
 
-        semantic_score = item["semantic_score"]
+        emotional_score = item["emotional_intensity"]
+        speech_quality_score = item["speech_quality"]
         hook_score = item["hook_strength"]
 
-        # Composite Ranking Formula
-        # Semantic & Hook: 45%, Audio Energy: 35%, Visual Activity: 20%
+        # 5-Signal Viral Composite Ranking Formula:
+        # 1. Emotional intensity: 25%
+        # 2. Speech/context quality: 25%
+        # 3. Audio excitement: 20%
+        # 4. Visual activity: 15%
+        # 5. Hook and standalone value: 15%
+        # Total = 100%
         composite = (
-            (semantic_score * 0.30) +
-            (hook_score * 0.15) +
-            (audio_score * 0.35) +
-            (visual_score * 0.20)
+            (emotional_score * 0.25) +
+            (speech_quality_score * 0.25) +
+            (audio_score * 0.20) +
+            (visual_score * 0.15) +
+            (hook_score * 0.15)
         )
         composite = min(100.0, max(10.0, round(composite, 1)))
 
@@ -135,7 +168,9 @@ def rank_and_deduplicate_moments(
             "hook_strength": round(hook_score, 1),
             "audio_intensity": round(audio_score, 1),
             "visual_activity": round(visual_score, 1),
-            "semantic_score": round(semantic_score, 1),
+            "semantic_score": round(emotional_score, 1),
+            "speech_quality": round(speech_quality_score, 1),
+            "hook": item.get("hook", ""),
             "explanation": item["explanation"],
             "transcript_excerpt": " ".join(matching_text)
         })
